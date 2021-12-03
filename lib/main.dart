@@ -1,153 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 void main() => runApp(XylophoneApp());
 
-
 class XylophoneApp extends StatelessWidget {
-  void playMusic(int audioNumber){
+  //tracking audio with its number
+  void playMusic(int audioNumber) {
     AudioCache player = AudioCache();
     player.play("note$audioNumber.wav");
   }
+
+  //reducing repetitive code using a fn that returns widget expanded
+  //takes positional arguments so as to be able to call it with its referrals
+  //we can remove it {} but when calling, we don't call parameters
+  //parameters need not to be the same name
+ Expanded buildKey({Color color, int audioNum}) {
+    return Expanded(
+      child: FlatButton(
+        color: color,
+        onPressed: () {
+          playMusic(audioNum);
+        },
+        // child: Container(
+        //   color: color,
+        // ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.black,
         body: SafeArea(
-
-
           child: Center(
             child: Column(
-              // crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-
-                Expanded(
-                  child: TextButton(
-                      onPressed: (){
-                        playMusic(1);
-                        },
-                           child: Container(
-                             color: Colors.red,
-                             // height: 50,
-                             // width: 1000,
-                             ),
-                           ),
-                ),
-                // SizedBox(
-                //   height: 5,
-                // ),
-                Expanded(
-                  child: TextButton(
-                    onPressed: (){
-                      playMusic(2);
-                    },
-                    child: Container(
-                      color: Colors.orange,
-                      // height: 50,
-                      // width: 1000,
-                    ),
-                  ),
-                ),
-
-        // SizedBox(
-        //     height: 5,
-        // ),
-        Expanded( 
-          child: TextButton(
-              onPressed: (){
-                playMusic(3);
-              },
-              child: Container(
-                color: Colors.yellow,
-                // height: 50,
-                // width: 1000,
-              ),
-          ),
-        ),
-                // SizedBox(
-                //   height: 5,
-                // ),
-                Expanded( 
-                  child: TextButton(
-                    onPressed: (){
-                      playMusic(4);
-                    },
-                    child: Container(
-                      color: Colors.green,
-                      // height: 50,
-                      // width: 1000,
-                    ),
-                  ),
-                ),
-
-                // SizedBox(
-                //   height: 5,
-                // ),
-                Expanded( 
-                  child: TextButton(
-                    onPressed: (){
-                      playMusic(5);
-                    },
-                    child: Container(
-                      color: Colors.blue,
-                      // height: 50,
-                      // width: 1000,
-                    ),
-                  ),
-                ),
-                // SizedBox(
-                //   height: 5,
-                // ),
-                Expanded(
-                  child: TextButton(
-                    onPressed: (){
-                      playMusic(6);
-                    },
-                    child: Container(
-                      color: Colors.indigo,
-                      // height: 50,
-                      // width: 1000,
-                    ),
-                  ),
-                ),
-
-                // SizedBox(
-                //   height: 5,
-                // ),
-                Expanded(
-                  child: TextButton(
-                    onPressed: (){
-                      playMusic(7);
-                    },
-                    child: Container(
-                      color: Colors.purple,
-                      // height: 50,
-                      // width: 1000,
-                    ),
-                  ),
-                ),
-
-
-
+                buildKey(color: Colors.red, audioNum: 1),
+                buildKey(color: Colors.orange, audioNum: 2),
+                buildKey(color: Colors.yellow, audioNum: 3),
+                buildKey(color: Colors.green, audioNum: 4),
+                buildKey(color: Colors.blue, audioNum: 5),
+                buildKey(color: Colors.indigo, audioNum: 6),
+                buildKey(color: Colors.purple, audioNum: 7),
               ],
-
             ),
           ),
-
         ),
       ),
     );
   }
 }
-
-//had to use TextButton instead FlatButton
-//because flatbutton is deprecated
-//that  means i need something for color
-//card didn't do so i resorted to container
-//because contain has property color
-//so the container was wrapped in the button
-//which was wrapped in expanded so as to have
-//equal size buttons
-//column was used to streatch the cont across axis
